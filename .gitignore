@@ -19,6 +19,9 @@ site/
 *.png
 *.pdf
 *.svg
+!docs/assets/generated/**/*.png
+!docs/assets/generated/**/*.pdf
+!docs/assets/generated/**/*.svg
 
 # OS / editor
 .DS_Store
