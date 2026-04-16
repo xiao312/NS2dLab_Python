@@ -1,6 +1,14 @@
 # NS2dLab Python
 
+[![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://xiao312.github.io/NS2dLab_Python/)
+[![Docs workflow](https://github.com/xiao312/NS2dLab_Python/actions/workflows/docs.yml/badge.svg)](https://github.com/xiao312/NS2dLab_Python/actions/workflows/docs.yml)
+[![Python](https://img.shields.io/badge/python-3.12%2B-blue.svg)](https://www.python.org/)
+[![GitHub repo size](https://img.shields.io/github/repo-size/xiao312/NS2dLab_Python)](https://github.com/xiao312/NS2dLab_Python)
+[![GitHub last commit](https://img.shields.io/github/last-commit/xiao312/NS2dLab_Python)](https://github.com/xiao312/NS2dLab_Python/commits/main)
+
 A Python port of the `NS2dLab` solver from the DNSLab MATLAB package.
+
+Documentation site: <https://xiao312.github.io/NS2dLab_Python/>
 
 Original DNSLab publication and dataset:
 
@@ -19,7 +27,8 @@ This repository currently ports **only the 2D pseudo-spectral solver**. The 3D c
 
 ## What is implemented
 
-The Python package reproduces the NS2dLab workflow:
+The Python package reproduces the NS2dLab workflow and adds downstream utilities for
+flame-in-HIT studies:
 
 - periodic square domain with side length `L = 2π`
 - pseudo-spectral differentiation with `fft2` / `ifft2`
@@ -30,13 +39,18 @@ The Python package reproduces the NS2dLab workflow:
   - kinetic energy `Ekin`
   - dissipation rate `Diss`
   - simulation time `Time`
+- saved velocity-field snapshots for downstream workflows
+- 2D HIT statistics from the evolved field
+- Cantera-based laminar flame speed / thickness calculations
+- Borghi/Peters-style turbulent flame regime placement
+- OpenFOAM 7 `U`-field export for structured 2D cases
 
 ## Repository layout
 
 - `src/nslab2d/` - package source
 - `tests/` - automated tests
 - `scripts/` - validation / figure-generation scripts
-- `docs/` - algorithm notes, backend spec, validation notes
+- `docs/` - algorithm notes, backend spec, validation notes, and flame/HIT workflow notes
 - no bundled MATLAB source; validation is based on analytical cases, manuscript-style checks, and CPU/GPU agreement
 
 ## Installation
@@ -64,10 +78,28 @@ The current tested pip-based GPU stack is:
 
 These are included in the `gpu` extra.
 
+Optional combustion dependencies (Cantera-based flame properties):
+
+```bash
+uv pip install -e '.[combustion]'
+```
+
 Development dependencies:
 
 ```bash
 uv pip install -e '.[dev]'
+```
+
+Documentation-site dependencies:
+
+```bash
+uv pip install -e '.[docs]'
+```
+
+Everything used in the full workflow:
+
+```bash
+uv pip install -e '.[full]'
 ```
 
 ## Running the solver
@@ -92,6 +124,18 @@ nslab2d run \
   --dt 0.1 \
   --simutime-seconds 50 \
   --output results/VortexArray2d_128_gpu.mat
+```
+
+### Save the final velocity field for downstream combustion/OpenFOAM workflows
+
+```bash
+nslab2d run \
+  --backend cpu \
+  --N 256 \
+  --dt 0.05 \
+  --simutime-seconds 50 \
+  --output results/VortexArray2d_256.mat \
+  --save-field-npz results/VortexArray2d_256_field.npz
 ```
 
 ## Comparing `.mat` outputs
@@ -131,6 +175,50 @@ Manuscript-scale CPU↔GPU validation:
 nslab2d validate-manuscript-cases --output results/manuscript_gpu_validation.json
 ```
 
+## Flame/HIT workflow commands
+
+Compute HIT statistics from a saved field:
+
+```bash
+nslab2d hit-stats --field-npz results/VortexArray2d_256_field.npz
+```
+
+Compute laminar flame properties with Cantera:
+
+```bash
+nslab2d flame-properties \
+  --mechanism gri30.yaml \
+  --fuel CH4 \
+  --oxidizer 'O2:1.0, N2:3.76' \
+  --phi 1.0 \
+  --Tu 300 \
+  --Pu 101325
+```
+
+Place a case on a Borghi/Peters-style turbulent flame regime diagram:
+
+```bash
+nslab2d regime-diagram \
+  --field-npz results/VortexArray2d_256_field.npz \
+  --mechanism gri30.yaml \
+  --fuel CH4 \
+  --oxidizer 'O2:1.0, N2:3.76' \
+  --phi 1.0 \
+  --Tu 300 \
+  --Pu 101325 \
+  --output artifacts/regime_diagram.png
+```
+
+Export a saved field to an OpenFOAM 7 `U` file:
+
+```bash
+nslab2d export-openfoam-u \
+  --field-npz results/VortexArray2d_256_field.npz \
+  --case-dir /path/to/openfoam_case \
+  --time-dir 0 \
+  --ordering x-fastest
+```
+
 ## Validation scripts
 
 The repository includes scripts used to reproduce the main qualitative / quantitative checks discussed while developing the port:
@@ -162,13 +250,41 @@ Current tests cover:
 - short-run solver stability and finiteness
 - MATLAB-friendly `.mat` output structure
 - Taylor–Green validation accuracy against the analytical solution
+- conditional GPU backend tests
+- HIT statistics helpers
+- OpenFOAM field export helpers
+- Cantera flame-property smoke test
+- regime-diagram helper calculations
 
 ## Documentation
 
+This repository now includes a MkDocs Material site source.
+
+Serve it locally:
+
+```bash
+uv pip install -e '.[docs]'
+mkdocs serve
+```
+
+Build it locally:
+
+```bash
+mkdocs build --strict
+```
+
+Main pages:
+
+- `docs/index.md` - site landing page
+- `docs/getting-started.md` - installation and first-run workflow
+- `docs/cli.md` - CLI-oriented usage guide
+- `docs/project-layout.md` - repository/module structure
 - `docs/NS2dLab_backend_spec.md` - backend design contract
 - `docs/algorithms.md` - solver algorithm overview
 - `docs/validation.md` - validation strategy and current checks
 - `docs/gpu.md` - GPU backend notes and tooling
+- `docs/flame_hit_workflow.md` - end-to-end flame-in-HIT workflow
+- `docs/api.md` - API reference via `mkdocstrings`
 - `CONTRIBUTING.md` - development workflow and contribution guidance
 
 ## Validation basis

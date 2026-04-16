@@ -1,0 +1,71 @@
+site_name: NS2dLab Python
+site_description: Python port of DNSLab NS2dLab with CPU, GPU, validation, and flame/HIT workflow utilities
+site_url: https://xiao312.github.io/NS2dLab_Python/
+repo_url: https://github.com/xiao312/NS2dLab_Python
+repo_name: xiao312/NS2dLab_Python
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - footnotes
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+          options:
+            docstring_style: numpy
+            show_root_heading: true
+            show_source: false
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/xiao312/NS2dLab_Python
+    - icon: fontawesome/solid/book
+      link: https://doi.org/10.1016/j.cpc.2016.02.023
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Overview: getting-started.md
+      - CLI Guide: cli.md
+      - Project Layout: project-layout.md
+  - Algorithms and Validation:
+      - Solver Algorithms: algorithms.md
+      - Validation Strategy: validation.md
+      - Backend Specification: NS2dLab_backend_spec.md
+  - GPU and Combustion Workflow:
+      - GPU Backend: gpu.md
+      - Flame-in-HIT Workflow: flame_hit_workflow.md
+  - API Reference: api.md
+  - Contributing: contributing.md
