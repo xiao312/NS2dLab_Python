@@ -58,14 +58,23 @@ nslab2d run \
 
 ## Documentation map
 
+The docs are now organized by user need:
+
+- **Start here** — overview and installation
+- **Tutorials** — guided, end-to-end learning paths
+- **How-to guides** — task-focused procedures
+- **Reference** — CLI, API, formats, and backend details
+- **Explanation** — algorithms, validation philosophy, and design rationale
+- **Results** — generated validation, backend, and flame/HIT outputs
+
 If you are new to the project, the fastest path is:
 
-1. [Getting Started](getting-started.md) — install the package and run the main commands
-2. [CLI Guide](cli.md) — understand the available workflows
-3. [Solver Algorithms](algorithms.md) — learn how the numerical method is implemented
-4. [Validation Strategy](validation.md) — see how correctness is established
-5. [Flame-in-HIT Workflow](flame_hit_workflow.md) — use the turbulence field in combustion studies
-6. [API Reference](api.md) — inspect module-level API documentation
+1. [Overview](start-here/overview.md)
+2. [Installation](start-here/installation.md)
+3. [Run your first simulation](tutorials/run-your-first-simulation.md)
+4. [CLI reference](reference/cli-reference.md)
+5. [Solver algorithms](explanation/solver-algorithms.md)
+6. [Validation results](results/validation-results.md)
 
 ## Original DNSLab reference
 

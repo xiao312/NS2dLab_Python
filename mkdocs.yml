@@ -56,20 +56,32 @@ extra:
 
 nav:
   - Home: index.md
-  - Getting Started:
-      - Overview: getting-started.md
-      - CLI Guide: cli.md
-      - Project Layout: project-layout.md
-  - Algorithms and Validation:
-      - Solver Algorithms: algorithms.md
-      - Validation Strategy: validation.md
-      - Validation Results: validation_results.md
-      - Backend Specification: NS2dLab_backend_spec.md
-  - GPU and Combustion Workflow:
-      - GPU Backend: gpu.md
-      - Backend Results: backend_results.md
-      - Flame-in-HIT Workflow: flame_hit_workflow.md
-      - Flame/HIT Results: flame_workflow_results.md
-  - API Reference: api.md
-  - Figure Style: figure_style.md
+  - Start here:
+      - Overview: start-here/overview.md
+      - Installation: start-here/installation.md
+  - Tutorials:
+      - Run your first simulation: tutorials/run-your-first-simulation.md
+      - Compare CPU and GPU on the same case: tutorials/compare-cpu-and-gpu.md
+      - Generate a flame/HIT workflow example: tutorials/flame-hit-workflow.md
+  - How-to guides:
+      - Install GPU support: how-to/install-gpu-support.md
+      - Benchmark performance: how-to/benchmark-performance.md
+      - Use the flame/HIT workflow: how-to/use-the-flame-hit-workflow.md
+      - Regenerate documentation artifacts: how-to/regenerate-docs-artifacts.md
+  - Reference:
+      - CLI reference: reference/cli-reference.md
+      - Output formats: reference/output-formats.md
+      - API reference: reference/api-reference.md
+      - Backend specification: reference/backend-specification.md
+      - Project layout: reference/project-layout.md
+  - Explanation:
+      - Solver algorithms: explanation/solver-algorithms.md
+      - Validation philosophy: explanation/validation-philosophy.md
+      - GPU backend: explanation/gpu-backend.md
+      - Flame/HIT methodology: explanation/flame-hit-methodology.md
+  - Results:
+      - Validation results: results/validation-results.md
+      - Backend results: results/backend-results.md
+      - Flame/HIT results: results/flame-hit-results.md
+      - Figure style: results/figure-style.md
   - Contributing: contributing.md

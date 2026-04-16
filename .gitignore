@@ -14,6 +14,8 @@ __pycache__/
 artifacts/
 results/
 site/
+!docs/results/
+!docs/results/**
 *.mat
 *.npy
 *.png
