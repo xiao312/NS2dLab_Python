@@ -1,0 +1,54 @@
+{
+  "cpu": [
+    {
+      "N": 64,
+      "backend": "cpu",
+      "dt": 0.1,
+      "elapsed_time_seconds": 0.4447933199990075,
+      "nu": 0.0001,
+      "simutime_seconds": 1.0
+    },
+    {
+      "N": 128,
+      "backend": "cpu",
+      "dt": 0.1,
+      "elapsed_time_seconds": 0.8243267799844034,
+      "nu": 0.0001,
+      "simutime_seconds": 1.0
+    },
+    {
+      "N": 256,
+      "backend": "cpu",
+      "dt": 0.05,
+      "elapsed_time_seconds": 15.715900453011272,
+      "nu": 0.0001,
+      "simutime_seconds": 1.0
+    }
+  ],
+  "gpu": [
+    {
+      "N": 64,
+      "backend": "gpu",
+      "dt": 0.1,
+      "elapsed_time_seconds": 0.2654181659745518,
+      "nu": 0.0001,
+      "simutime_seconds": 1.0
+    },
+    {
+      "N": 128,
+      "backend": "gpu",
+      "dt": 0.1,
+      "elapsed_time_seconds": 0.12027827301062644,
+      "nu": 0.0001,
+      "simutime_seconds": 1.0
+    },
+    {
+      "N": 256,
+      "backend": "gpu",
+      "dt": 0.05,
+      "elapsed_time_seconds": 0.2267482509778347,
+      "nu": 0.0001,
+      "simutime_seconds": 1.0
+    }
+  ]
+}

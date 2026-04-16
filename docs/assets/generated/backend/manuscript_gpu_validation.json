@@ -1,0 +1,86 @@
+{
+  "default_vortex_array": {
+    "config": {
+      "N": 128,
+      "dt": 0.1,
+      "nu": 0.0001,
+      "simutime_seconds": 50.0
+    },
+    "cpu_elapsed_time_seconds": 12.70584596999106,
+    "gpu_elapsed_time_seconds": 5.584192313981475,
+    "metrics": {
+      "Diss_max_abs": 8.173867941003998e-20,
+      "Diss_max_rel": 6.735845158410559e-16,
+      "Diss_rmse": 4.2748541105393634e-20,
+      "Diss_rmse_rel": 3.522782062448048e-16,
+      "Ekin_max_abs": 6.152847328855238e-18,
+      "Ekin_max_rel": 6.158099710529407e-15,
+      "Ekin_rmse": 2.7064187028760786e-18,
+      "Ekin_rmse_rel": 2.7087290387641397e-15,
+      "U_final_max_abs": 1.383788916786699e-14,
+      "U_final_max_rel": 2.783783456993899e-13,
+      "U_final_rmse": 1.7149177317003231e-15,
+      "U_final_rmse_rel": 3.449918953461839e-14,
+      "V_final_max_abs": 1.645211744616404e-14,
+      "V_final_max_rel": 2.918246119814818e-13,
+      "V_final_rmse": 1.884672144980595e-15,
+      "V_final_rmse_rel": 3.3429965426699845e-14
+    }
+  },
+  "pseudo_turbulence_256": {
+    "config": {
+      "N": 256,
+      "dt": 0.05,
+      "nu": 0.0001,
+      "simutime_seconds": 50.0
+    },
+    "cpu_elapsed_time_seconds": 276.4470205310208,
+    "gpu_elapsed_time_seconds": 20.130234863027,
+    "metrics": {
+      "Diss_max_abs": 6.572975670693371e-19,
+      "Diss_max_rel": 3.4668267749298704e-15,
+      "Diss_rmse": 5.418939423132959e-19,
+      "Diss_rmse_rel": 2.8581460247301686e-15,
+      "Ekin_max_abs": 2.564138137928218e-17,
+      "Ekin_max_rel": 2.3744305538728536e-14,
+      "Ekin_rmse": 2.1668448149374885e-17,
+      "Ekin_rmse_rel": 2.006530950101478e-14,
+      "U_final_max_abs": 5.391173618640721e-14,
+      "U_final_max_rel": 7.510488043436307e-13,
+      "U_final_rmse": 5.5121213740455e-15,
+      "U_final_rmse_rel": 7.678981350293875e-14,
+      "V_final_max_abs": 4.614798126967301e-14,
+      "V_final_max_rel": 7.727119306617618e-13,
+      "V_final_rmse": 5.469881311925641e-15,
+      "V_final_rmse_rel": 9.158889365776805e-14
+    }
+  },
+  "taylor_green": {
+    "config": {
+      "N": 32,
+      "dt": 0.1,
+      "nu": 0.0001,
+      "simutime_seconds": 1.0
+    },
+    "cpu_elapsed_time_seconds": 0.19391852300032042,
+    "gpu_elapsed_time_seconds": 0.12170943801174872,
+    "metrics": {
+      "Diss_max_abs": 2.846030702774449e-19,
+      "Diss_max_rel": 2.846144546279414e-15,
+      "Diss_rmse": 1.8508009095235155e-19,
+      "Diss_rmse_rel": 1.8508749430405562e-15,
+      "Ekin_max_abs": 6.38378239159465e-16,
+      "Ekin_max_rel": 2.5536150991989626e-15,
+      "Ekin_rmse": 4.420026397643358e-16,
+      "Ekin_rmse_rel": 1.7680812808941325e-15,
+      "U_final_max_abs": 2.55351295663786e-15,
+      "U_final_max_rel": 2.554023710302851e-15,
+      "U_final_rmse": 8.293323963372437e-16,
+      "U_final_rmse_rel": 8.294982794042648e-16,
+      "V_final_max_abs": 2.55351295663786e-15,
+      "V_final_max_rel": 2.5540237103028506e-15,
+      "V_final_rmse": 8.385790183748419e-16,
+      "V_final_rmse_rel": 8.387467509512151e-16
+    }
+  }
+}

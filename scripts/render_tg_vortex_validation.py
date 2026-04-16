@@ -7,6 +7,7 @@ import numpy as np
 
 from nslab2d.config import NS2dConfig
 from nslab2d.diagnostics import divergence
+from nslab2d.plot_style import add_light_ygrid, apply_academic_plot_style, categorical_colors
 from nslab2d.solver import NS2dLabSolver
 
 
@@ -19,6 +20,7 @@ def tg_exact(x, y, t, nu):
 
 
 def main() -> None:
+    apply_academic_plot_style()
     outdir = Path("artifacts/ns2d_tg")
     outdir.mkdir(parents=True, exist_ok=True)
 
@@ -51,6 +53,7 @@ def main() -> None:
     umax = float(np.max(np.abs(u_ex_line)))
 
     stride = 2
+    colors = categorical_colors(2)
     plt.figure(figsize=(13, 5))
 
     ax1 = plt.subplot(1, 2, 1)
@@ -59,7 +62,7 @@ def main() -> None:
         Y[::stride, ::stride],
         U_num[::stride, ::stride],
         V_num[::stride, ::stride],
-        color="tab:blue",
+        color=colors[0],
         angles="xy",
         scale_units="xy",
         scale=1.8,
@@ -73,12 +76,12 @@ def main() -> None:
     ax1.set_aspect("equal")
 
     ax2 = plt.subplot(1, 2, 2)
-    ax2.plot(xline, u_num_line / umax, "o-", label="NS2dLab Python", markersize=4)
-    ax2.plot(xline, u_ex_line / umax, "k--", label="Analytical", linewidth=1.5)
+    ax2.plot(xline, u_num_line / umax, "o-", label="NS2dLab Python", markersize=4, color=colors[0])
+    ax2.plot(xline, u_ex_line / umax, "--", label="Analytical", linewidth=1.5, color=colors[1])
     ax2.set_xlabel("x")
     ax2.set_ylabel("U/Umax")
     ax2.set_title("Velocity profile at y=0")
-    ax2.grid(True, alpha=0.3)
+    add_light_ygrid(ax2)
     ax2.legend()
 
     plt.suptitle(

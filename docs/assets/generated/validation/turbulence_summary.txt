@@ -1,0 +1,16 @@
+N = 256
+dt = 0.05
+simutime_seconds = 50.0
+nu = 0.0001
+Ekin_min = 1.9227619488858730e-04
+Ekin_max = 1.0798960339126107e-03
+Diss_min = 3.2009800407356404e-06
+Diss_max = 1.8959631090383319e-04
+Residual_min = 1.7146784412800341e-15
+Residual_max = 1.1043248411423500e-02
+Residual_mean = 2.7368924092195705e-05
+Residual_median = 5.5570816232062420e-15
+ResidualInterior_min = 1.7146784412800341e-15
+ResidualInterior_max = 2.1086358218324816e-10
+ResidualInterior_mean = 4.3296848198211879e-12
+ResidualInterior_median = 5.5349181591083860e-15

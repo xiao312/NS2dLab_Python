@@ -63,9 +63,13 @@ nav:
   - Algorithms and Validation:
       - Solver Algorithms: algorithms.md
       - Validation Strategy: validation.md
+      - Validation Results: validation_results.md
       - Backend Specification: NS2dLab_backend_spec.md
   - GPU and Combustion Workflow:
       - GPU Backend: gpu.md
+      - Backend Results: backend_results.md
       - Flame-in-HIT Workflow: flame_hit_workflow.md
+      - Flame/HIT Results: flame_workflow_results.md
   - API Reference: api.md
+  - Figure Style: figure_style.md
   - Contributing: contributing.md

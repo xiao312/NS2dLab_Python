@@ -7,10 +7,12 @@ import numpy as np
 
 from nslab2d.config import NS2dConfig
 from nslab2d.diagnostics import curl, gather_timeseries
+from nslab2d.plot_style import SIGNED_CMAP, apply_academic_plot_style
 from nslab2d.solver import NS2dLabSolver
 
 
 def main() -> None:
+    apply_academic_plot_style()
     outdir = Path("artifacts/ns2d_default")
     outdir.mkdir(parents=True, exist_ok=True)
 
@@ -54,7 +56,7 @@ def main() -> None:
     axes = axes.ravel()
     im = None
     for ax, (step, arr) in zip(axes, snapshots):
-        im = ax.imshow(arr, origin="lower", cmap="RdBu_r", vmin=-lim, vmax=lim)
+        im = ax.imshow(arr, origin="lower", cmap=SIGNED_CMAP, vmin=-lim, vmax=lim)
         ax.set_title(f"step={step}, t={step * cfg.dt:.1f}s")
         ax.set_xticks([])
         ax.set_yticks([])
@@ -71,7 +73,7 @@ def main() -> None:
     arr_min = float(arr.min())
     arr_max = float(arr.max())
     plt.figure(figsize=(6.5, 6))
-    plt.imshow(arr, origin="lower", cmap="RdBu_r", vmin=arr_min, vmax=arr_max)
+    plt.imshow(arr, origin="lower", cmap=SIGNED_CMAP, vmin=arr_min, vmax=arr_max)
     plt.xticks([])
     plt.yticks([])
     plt.title(f"NS2dLab default curl, final frame step={step}, t={step * cfg.dt:.1f}s")

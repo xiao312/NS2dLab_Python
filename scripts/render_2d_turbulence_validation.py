@@ -7,6 +7,7 @@ import numpy as np
 
 from nslab2d.config import NS2dConfig
 from nslab2d.diagnostics import curl, gather_timeseries
+from nslab2d.plot_style import SIGNED_CMAP, add_light_ygrid, apply_academic_plot_style, categorical_colors
 from nslab2d.solver import NS2dLabSolver
 
 
@@ -22,6 +23,7 @@ def central_diff_6th_periodic(f: np.ndarray, dt: float) -> np.ndarray:
 
 
 def main() -> None:
+    apply_academic_plot_style()
     outdir = Path("artifacts/ns2d_turbulence_256")
     outdir.mkdir(parents=True, exist_ok=True)
 
@@ -93,23 +95,25 @@ def main() -> None:
 
     plot_mask = (time >= 2.0) & (time <= 48.0)
 
+    colors = categorical_colors(2)
     fig = plt.figure(figsize=(15, 10), constrained_layout=True)
     gs = fig.add_gridspec(3, 3)
 
     for idx, (step, arr) in enumerate(snapshots):
         ax = fig.add_subplot(gs[idx // 3, idx % 3])
-        im = ax.imshow(arr, origin="lower", cmap="RdBu_r", vmin=-lim, vmax=lim)
+        im = ax.imshow(arr, origin="lower", cmap=SIGNED_CMAP, vmin=-lim, vmax=lim)
         ax.set_title(f"curl(U,V), step={step}, t={step * cfg.dt:.2f}s")
         ax.set_xticks([])
         ax.set_yticks([])
 
     ax_energy = fig.add_subplot(gs[2, :])
-    ax_energy.plot(time[plot_mask], minus_d_ekin_dt[plot_mask], label=r"$-dE_{kin}/dt$ (6th-order CD)", linewidth=1.5)
+    ax_energy.plot(time[plot_mask], minus_d_ekin_dt[plot_mask], label=r"$-dE_{kin}/dt$ (6th-order CD)", linewidth=1.5, color=colors[0])
     ax_energy.plot(
         time[plot_mask],
         diss[plot_mask],
         label=r"$\chi(t)$",
         linewidth=1.0,
+        color=colors[1],
         marker="o",
         markersize=2.5,
         markevery=12,
@@ -117,7 +121,7 @@ def main() -> None:
     ax_energy.set_xlabel("t")
     ax_energy.set_ylabel("value")
     ax_energy.set_title("Energy identity check for 2D pseudo-turbulence")
-    ax_energy.grid(True, alpha=0.3)
+    add_light_ygrid(ax_energy)
     ax_energy.legend()
 
     cbar = fig.colorbar(im, ax=fig.axes[:-1], shrink=0.75)
@@ -131,7 +135,7 @@ def main() -> None:
     plt.xlabel("t")
     plt.ylabel(r"$R = |dE_{kin}/dt + \chi|$")
     plt.title("Energy residual")
-    plt.grid(True, which="both", alpha=0.3)
+    plt.grid(True, which="both", axis="y", alpha=0.3)
     plt.tight_layout()
     plt.savefig(outdir / "energy_residual.png", dpi=220)
     plt.close()

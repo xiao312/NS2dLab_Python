@@ -1,0 +1,45 @@
+{
+  "figure": "docs/assets/generated/flame/regime_diagram.png",
+  "flame_properties": {
+    "P_u": 101325.0,
+    "S_L": 2.314445768015549,
+    "T_b": 2496.1141219938336,
+    "T_u": 300.0,
+    "alpha_u": 4.430115428502487e-05,
+    "cp_u": 810.1638130844448,
+    "delta_T": 0.00040309936067689777,
+    "delta_alpha": 1.9141150290598317e-05,
+    "fuel": "H2",
+    "grid_points": 144,
+    "lambda_u": 0.042970067124435046,
+    "mechanism": "h2o2.yaml",
+    "oxidizer": "O2:1.0, AR:5.0",
+    "phi": 1.0,
+    "rho_u": 1.1972315388449,
+    "transport_model": "mixture-averaged",
+    "width": 0.03
+  },
+  "hit_stats": {
+    "dx": 0.02454369260617026,
+    "dy": 0.02454369260617026,
+    "integral_length_scale_mean": 0.4161369017524392,
+    "integral_length_scale_x": 0.36383050285288404,
+    "integral_length_scale_y": 0.46844330065199435,
+    "mean_u": 1.1514990805837344e-07,
+    "mean_v": -9.361898006296111e-07,
+    "tke_2d": 0.00019227619444373188,
+    "uprime_component_rms": 0.01386636918748855,
+    "uprime_planar_rms": 0.019610007365818704
+  },
+  "regime_point": {
+    "Da": 3628711.5419416684,
+    "Ka": 3.1451367051393892e-06,
+    "S_L": 2.314445768015549,
+    "delta_L": 1.9141150290598317e-05,
+    "integral_length_scale": 0.4161369017524392,
+    "lt_over_deltaL": 21740.433330009215,
+    "thickness_definition": "delta_alpha",
+    "uprime": 0.01386636918748855,
+    "uprime_over_Sl": 0.005991226659580728
+  }
+}

@@ -32,6 +32,7 @@ import numpy as np
 
 from .flame_properties import FlameProperties
 from .hit_stats import HITStats
+from .plot_style import add_light_ygrid, apply_academic_plot_style, categorical_colors
 
 
 @dataclass(slots=True)
@@ -106,6 +107,7 @@ def plot_borghi_peters_diagram(
     The region boundaries drawn here are heuristic guide lines based on the commonly used
     Da=1 and Ka=1 relations. They are intended to help users orient the case quickly.
     """
+    apply_academic_plot_style()
     output = Path(output_path)
     output.parent.mkdir(parents=True, exist_ok=True)
 
@@ -114,12 +116,13 @@ def plot_borghi_peters_diagram(
     ka1 = x ** (1.0 / 3.0)
     ka100 = 100.0 ** (2.0 / 3.0) * x ** (1.0 / 3.0)
 
+    colors = categorical_colors(3)
     fig, ax = plt.subplots(figsize=(8.5, 6.5))
-    ax.loglog(x, da1, "k--", linewidth=1.0, label="Da = 1")
-    ax.loglog(x, ka1, color="tab:gray", linestyle="-.", linewidth=1.0, label="Ka = 1")
-    ax.loglog(x, ka100, color="tab:gray", linestyle=":", linewidth=1.0, label="Ka = 100")
+    ax.loglog(x, da1, "--", linewidth=1.0, color=colors[0], label="Da = 1")
+    ax.loglog(x, ka1, linestyle="-.", linewidth=1.0, color=colors[1], label="Ka = 1")
+    ax.loglog(x, ka100, linestyle=":", linewidth=1.2, color=colors[2], label="Ka = 100")
 
-    ax.scatter([point.lt_over_deltaL], [point.uprime_over_Sl], s=80, color="tab:red", zorder=5)
+    ax.scatter([point.lt_over_deltaL], [point.uprime_over_Sl], s=90, color="#303030", zorder=5)
     if annotate is not None:
         ax.annotate(annotate, (point.lt_over_deltaL, point.uprime_over_Sl), xytext=(8, 8), textcoords="offset points")
 
@@ -131,7 +134,8 @@ def plot_borghi_peters_diagram(
     ax.set_xlabel(r"$l_t / \delta_L$")
     ax.set_ylabel(r"$u' / S_L$")
     ax.set_title(title)
-    ax.grid(True, which="both", alpha=0.25)
+    add_light_ygrid(ax)
+    ax.grid(True, which="major", axis="x", alpha=0.15)
     ax.legend(loc="lower right")
     ax.set_xlim(1e-1, 1e4)
     ax.set_ylim(1e-2, 1e3)
