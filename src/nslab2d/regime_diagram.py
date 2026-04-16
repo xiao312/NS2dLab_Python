@@ -102,41 +102,61 @@ def plot_borghi_peters_diagram(
     title: str = "Turbulent flame regime diagram",
     annotate: str | None = None,
 ) -> None:
-    """Plot a simple Borghi/Peters-style diagram with the supplied case point.
+    """Plot a Borghi/Peters-style diagram with common regime boundaries.
 
-    The region boundaries drawn here are heuristic guide lines based on the commonly used
-    Da=1 and Ka=1 relations. They are intended to help users orient the case quickly.
+    The plotted guide lines are:
+
+    - turbulent Reynolds number: Re_t = (u'/S_L) (l_t/delta_L) = 1
+    - Damkohler number: D_a = 1
+    - Karlovitz number: K_a = 1
+    - Karlovitz number: K_a = 100
+
+    In this convention, the `D_a = 1` and `K_a = 1` lines are clipped so they begin at
+    `(l_t/delta_L, u'/S_L) = (1, 1)` and therefore do not extend into the laminar region.
     """
     apply_academic_plot_style()
     output = Path(output_path)
     output.parent.mkdir(parents=True, exist_ok=True)
 
-    x = np.logspace(-1, 4, 400)
-    da1 = x
-    ka1 = x ** (1.0 / 3.0)
-    ka100 = 100.0 ** (2.0 / 3.0) * x ** (1.0 / 3.0)
+    x_full = np.logspace(-1, 4, 600)
+    x_turb = np.logspace(0, 4, 500)
 
-    colors = categorical_colors(3)
+    re_t_1 = x_full ** -1.0
+    uprime_sl_1 = np.ones_like(x_turb)
+    da_1 = x_turb
+    ka_1 = x_turb ** (1.0 / 3.0)
+    ka_100 = 100.0 ** (2.0 / 3.0) * x_full ** (1.0 / 3.0)
+
+    colors = categorical_colors(5)
     fig, ax = plt.subplots(figsize=(8.5, 6.5))
-    ax.loglog(x, da1, "--", linewidth=1.0, color=colors[0], label="Da = 1")
-    ax.loglog(x, ka1, linestyle="-.", linewidth=1.0, color=colors[1], label="Ka = 1")
-    ax.loglog(x, ka100, linestyle=":", linewidth=1.2, color=colors[2], label="Ka = 100")
+    ax.loglog(x_full, re_t_1, "-", linewidth=1.1, color=colors[0])
+    ax.loglog(x_turb, uprime_sl_1, "-", linewidth=1.1, color=colors[1])
+    ax.loglog(x_turb, da_1, "--", linewidth=1.1, color=colors[2])
+    ax.loglog(x_turb, ka_1, linestyle="-.", linewidth=1.1, color=colors[3])
+    ax.loglog(x_full, ka_100, linestyle=":", linewidth=1.4, color=colors[4])
 
-    ax.scatter([point.lt_over_deltaL], [point.uprime_over_Sl], s=90, color="#303030", zorder=5)
+    ax.scatter([point.lt_over_deltaL], [point.uprime_over_Sl], s=170, color="#303030", edgecolors="white", linewidths=0.9, zorder=6)
     if annotate is not None:
         ax.annotate(annotate, (point.lt_over_deltaL, point.uprime_over_Sl), xytext=(8, 8), textcoords="offset points")
 
-    ax.text(0.18, 0.18, "Laminar / weakly perturbed", transform=ax.transAxes)
-    ax.text(0.18, 0.55, "Wrinkled / corrugated flamelets", transform=ax.transAxes)
-    ax.text(0.55, 0.68, "Thin reaction zones", transform=ax.transAxes)
-    ax.text(0.72, 0.25, "Broken reaction zones / distributed", transform=ax.transAxes)
+    ax.text(0.10, 0.11, "Laminar / weakly perturbed", transform=ax.transAxes)
+    ax.text(0.29, 0.28, "Wrinkled flamelets", transform=ax.transAxes)
+    ax.text(0.28, 0.47, "Corrugated flamelets", transform=ax.transAxes)
+    ax.text(0.60, 0.67, "Thin reaction zones", transform=ax.transAxes)
+    ax.text(0.73, 0.83, "Broken reaction zones", transform=ax.transAxes)
+
+    # Inline line labels instead of a legend.
+    ax.text(2.0e-1, 7.0, r"$Re_t=(u'/S_L)(l_t/\delta_L)=1$", color=colors[0], rotation=-27)
+    ax.text(2.4, 1.18, r"$u'/S_L=1$", color=colors[1], rotation=0)
+    ax.text(2.5e1, 3.0e1, r"$D_a=1$", color=colors[2], rotation=27)
+    ax.text(1.7, 2.2, r"$K_a=1$", color=colors[3], rotation=18)
+    ax.text(8.0, 3.5e1, r"$K_a=100$", color=colors[4], rotation=18)
 
     ax.set_xlabel(r"$l_t / \delta_L$")
     ax.set_ylabel(r"$u' / S_L$")
     ax.set_title(title)
     add_light_ygrid(ax)
     ax.grid(True, which="major", axis="x", alpha=0.15)
-    ax.legend(loc="lower right")
     ax.set_xlim(1e-1, 1e4)
     ax.set_ylim(1e-2, 1e3)
 

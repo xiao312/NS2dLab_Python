@@ -34,3 +34,5 @@ It complements the narrative docs but does not replace tutorials, how-to guides,
 ::: nslab2d.regime_diagram
 
 ::: nslab2d.openfoam
+
+::: nslab2d.turbulence_design

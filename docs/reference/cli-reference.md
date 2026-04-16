@@ -97,6 +97,45 @@ Required options:
 - `--field-npz`
 - `--case-dir`
 
+### `regime-targets`
+
+Compute target turbulence values from a desired regime-diagram point.
+
+Required options:
+
+- `--Sl`
+- `--deltaL`
+- `--lt-over-deltaL`
+- `--uprime-over-Sl`
+
+### `tune-regime-field`
+
+Generate and optionally evolve a divergence-free random field toward target `u'` and `l_t`.
+
+You can provide targets in either of two ways:
+
+- direct `--Sl` and `--deltaL`
+- a full flame-property input set from which `S_L` and `delta_L` are computed
+
+Optional search controls include:
+
+- `--N-values` for a comma-separated search list such as `128,256,512,1024`
+- `--L-values` for a comma-separated domain-length search list
+- `--k0-values` for the spectral-peak search list
+- `--mode-values` for a modal-index search list; when present, the code uses `k0 = m (2\pi/L)` for each tested `L`
+- `--bandwidth-modes` for Gaussian bandwidth in modal-index units when using `--mode-values`
+
+Optional outputs include:
+
+- a tuning-history JSON through `--output-json`
+- a search plot through `--output-search-plot`
+- a reusable artifact bundle through `--output-artifacts-dir`, containing final curl, top-history curl montage, and regime-diagram history plots
+
+### `target-regime-point`
+
+Convenience command that tunes a field and writes a requested-vs-achieved search plot.
+It also supports `--output-artifacts-dir` for publication-style visual summaries of the final field and search history.
+
 ## Related pages
 
 - [Run your first simulation](../tutorials/run-your-first-simulation.md)

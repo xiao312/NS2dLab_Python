@@ -67,6 +67,7 @@ nav:
       - Install GPU support: how-to/install-gpu-support.md
       - Benchmark performance: how-to/benchmark-performance.md
       - Use the flame/HIT workflow: how-to/use-the-flame-hit-workflow.md
+      - Target a regime-diagram location: how-to/target-a-regime-diagram-location.md
       - Regenerate documentation artifacts: how-to/regenerate-docs-artifacts.md
   - Reference:
       - CLI reference: reference/cli-reference.md
